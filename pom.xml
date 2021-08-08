@@ -42,23 +42,6 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
-                <executions>
-                    <execution>
-                        <id>core</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <source>8</source>
-                            <target>8</target>
-                            <fork>false</fork>
-                            <outputDirectory>${project.build.outputDirectory}_core</outputDirectory>
-                            <includes>
-                                <include>**/io/oreto/brew/*</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -78,18 +61,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>core</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <classifier>core</classifier>
-                            <classesDirectory>${project.build.outputDirectory}_core</classesDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
