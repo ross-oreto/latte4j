@@ -1,0 +1,93 @@
+package io.oreto.latte.pojos;
+
+import java.util.*;
+
+public class Item implements Comparable<Item>, Comparator<Item> {
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
+    private String name;
+
+    private List<Order> orders;
+    private Map<String, String> attributes;
+
+    public Item() {
+        orders = new ArrayList<>();
+        attributes = new HashMap<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Map<String, String> getAttributes() {
+        return attributes;
+    }
+    public void setAttributes(Map<String, String> attributes) {
+        this.attributes = attributes;
+    }
+
+    public Item withId(Long id) {
+        this.id = id;
+        return this;
+    }
+    public Item withName(String name) {
+        this.name = name;
+        return this;
+    }
+    public Item addAttribute(String...entries) {
+        int len = entries.length;
+        for (int i = 0; i < len; i = i + 2)
+            this.attributes.put(entries[i], i + 1 < len ? entries[i + 1] : null);
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Item)) {
+            return false;
+        }
+        Item item = (Item) o;
+        return Objects.equals(item.getId(), getId())
+                && Objects.equals(item.getName(), getName());
+    }
+
+    @Override
+    public int compare(Item o1, Item o2) {
+        return Comparator.comparing((Item item) -> item.name)
+                .thenComparing(Item::getId).compare(o1, o2);
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        return this.compare(this, o);
+    }
+}
