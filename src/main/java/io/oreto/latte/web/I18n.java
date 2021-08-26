@@ -88,13 +88,14 @@ public class I18n {
      * given the message properties:
      * save=submit
      * test=click on the {0} button
-     * t("test", ":save") will result in 'click on the save button';
+     * t2("test", ":save") will result in 'click on the save button';
      * @param key The resource bundle key.
      * @param args Arguments needed to resolve the translation message.
      * @return The translated string or empty if not found.
      */
     public Optional<String> t2(String key, Object... args) {
         return t(key, Arrays.stream(args).map(it -> Objects.nonNull(it)
-                && it instanceof String && ((String) it).startsWith(":") ? t(key).orElse(key) : it));
+                && it instanceof String && ((String) it).startsWith(":")
+                ? t(it.toString().substring(1)).orElse(it.toString()) : it).toArray());
     }
 }
