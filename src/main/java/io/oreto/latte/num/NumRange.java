@@ -1,31 +1,33 @@
 package io.oreto.latte.num;
 
+import io.oreto.latte.Range;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-abstract public class Range<T extends Number> extends io.oreto.latte.Range<T> {
+abstract public class NumRange<T extends Number> extends Range<T> {
 
     public static boolean numberIn(Number element, Number from, Number to, boolean inclusive) {
         boolean in;
         if (element instanceof Integer) {
-            in = Range.in((Integer) element, from.intValue(), to.intValue(), inclusive);
+            in = NumRange.in((Integer) element, from.intValue(), to.intValue(), inclusive);
         } else if (element instanceof Byte) {
-            in = Range.in((Byte) element, from.byteValue(), to.byteValue(), inclusive);
+            in = NumRange.in((Byte) element, from.byteValue(), to.byteValue(), inclusive);
         } else if (element instanceof Short) {
-            in = Range.in((Short) element, from.shortValue(), to.shortValue(), inclusive);
+            in = NumRange.in((Short) element, from.shortValue(), to.shortValue(), inclusive);
         } else if (element instanceof Long) {
-            in = Range.in((Long) element, from.longValue(), to.longValue(), inclusive);
+            in = NumRange.in((Long) element, from.longValue(), to.longValue(), inclusive);
         } else if (element instanceof Float) {
-            in = Range.in((Float) element, from.floatValue(), to.floatValue(), inclusive);
+            in = NumRange.in((Float) element, from.floatValue(), to.floatValue(), inclusive);
         } else if (element instanceof Double) {
-            in = Range.in((Double) element, from.doubleValue(), to.doubleValue(), inclusive);
+            in = NumRange.in((Double) element, from.doubleValue(), to.doubleValue(), inclusive);
         } else if (element instanceof BigInteger) {
-            in = Range.in((BigInteger) element, (BigInteger) from, (BigInteger) to, inclusive);
+            in = NumRange.in((BigInteger) element, (BigInteger) from, (BigInteger) to, inclusive);
         } else if (element instanceof BigDecimal) {
-            in = Range.in((BigDecimal) element, (BigDecimal) from, (BigDecimal) to, inclusive);
+            in = NumRange.in((BigDecimal) element, (BigDecimal) from, (BigDecimal) to, inclusive);
         } else {
             in = false;
         }
@@ -33,7 +35,7 @@ abstract public class Range<T extends Number> extends io.oreto.latte.Range<T> {
     }
 
     protected T step;
-    public Range<T> by(T step) { this.step = step; return this; }
+    public NumRange<T> by(T step) { this.step = step; return this; }
     public T by() { return step == null ? (step = defaultStep()) : step; }
     abstract protected T defaultStep();
 

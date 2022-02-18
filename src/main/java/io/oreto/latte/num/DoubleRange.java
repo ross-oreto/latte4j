@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class DoubleRange extends Range<Double> {
+public class DoubleRange extends NumRange<Double> {
     public static DoubleRange of(Double from, Double to) {
         return new DoubleRange().from(from).to(to);
     }

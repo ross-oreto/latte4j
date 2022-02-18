@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class LongRange extends Range<Long> {
+public class LongRange extends NumRange<Long> {
     public static LongRange of(Long from, Long to) {
         return new LongRange().from(from).to(to);
     }

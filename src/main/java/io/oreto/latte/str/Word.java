@@ -1,12 +1,11 @@
 package io.oreto.latte.str;
 
 import io.oreto.latte.collections.Lists;
+import io.oreto.latte.map.E;
 import io.oreto.latte.map.Maps;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static io.oreto.latte.map.Maps.E;
 
 public class Word {
 

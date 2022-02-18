@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class BigDecimalRange extends Range<BigDecimal> {
+public class BigDecimalRange extends NumRange<BigDecimal> {
     public static BigDecimalRange of(BigDecimal from, BigDecimal to) {
         return new BigDecimalRange().from(from).to(to);
     }

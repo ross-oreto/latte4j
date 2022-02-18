@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class IntRange extends Range<Integer> {
+public class IntRange extends NumRange<Integer> {
 
     public static IntRange of(Integer from, Integer to) {
         return new IntRange().from(from).to(to);

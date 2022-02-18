@@ -1,6 +1,6 @@
 package io.oreto.latte;
 
-import io.oreto.latte.num.Range;
+import io.oreto.latte.num.NumRange;
 import io.oreto.latte.num.*;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +47,7 @@ public class NumTest {
     @Test
     public void inRangeTest() {
 
-        assertTrue(Range.numberIn(1.5, 0, 10, true));
+        assertTrue(NumRange.numberIn(1.5, 0, 10, true));
 
         assertTrue(IntRange.To(10).by(2).in(4));
         assertFalse(IntRange.To(10).by(2).in(5));

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class BigIntRange extends Range<BigInteger> {
+public class BigIntRange extends NumRange<BigInteger> {
     public static BigIntRange of(BigInteger from, BigInteger to) {
         return new BigIntRange().from(from).to(to);
     }
