@@ -7,8 +7,10 @@ import io.oreto.latte.map.Maps;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Utility class to name things and represent things as words.
+ */
 public class Word {
-
     public enum ZeroTo9 {
         zero(0)
         , one(1)
@@ -162,7 +164,7 @@ public class Word {
         put(TwentyTo90.ninety.num, TwentyTo90.ninety.name());
     }};
 
-    static private final Map<Integer, String> magnitudeToWord = Maps.of(
+    static private final Map<Integer, String> magnitudeToWord = Maps.linked(
             E.of(0, "hundred")
             , E.of(1, "thousand")
             , E.of(2, "million")

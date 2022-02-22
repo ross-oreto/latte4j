@@ -27,6 +27,33 @@ public class ListTest {
         assertArrayEquals(new Long[]{ 6L, 12L, 11L, 1L, 3L, 10L }, ordered.stream().map(Entity::getId).toArray(Long[]::new));
     }
 
+    @Test
+    public void subList() {
+        assertEquals(Lists.of(
+                Lists.of("a")
+                , Lists.of("a", "b")
+                , Lists.of("a", "b", "c")
+                , Lists.of("a", "b", "c", "d")
+        ), Lists.subLists(Lists.of("a", "b", "c", "d")));
+    }
+
+    @Test
+    public void collate() {
+        assertEquals(Lists.of(
+                Lists.of("a", "b", "c")
+                , Lists.of("b", "c", "d")
+                , Lists.of("c", "d")
+                , Lists.of("d")
+        ), Lists.collate(Lists.of("a", "b", "c", "d"), 3,  1));
+
+        assertEquals(Lists.of(
+                Lists.of("a", "b", "c")
+                , Lists.of("b", "c", "d")
+        ), Lists.collate(Lists.of("a", "b", "c", "d"), 3,  false));
+
+        Lists.collate(new String[]{}, 1, 3, true);
+    }
+
     public static class Entity {
         private Long id;
         private Integer i;

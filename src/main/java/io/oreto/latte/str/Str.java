@@ -379,7 +379,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
     }
 
     static private Map<Integer, List<CharSequence>> groupBySizes(CharSequence[] search) {
-        Map<Integer, List<CharSequence>> strings = new HashMap<>();
+        Map<Integer, List<CharSequence>> strings = new WeakHashMap<>();
         Arrays.stream(search).forEach(it -> {
             if (strings.containsKey(it.length()))
                 strings.get(it.length()).add(it);
@@ -819,7 +819,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
 
     public Str replaceLast(CharSequence regex, CharSequence replacement) {
         Matcher matcher = Pattern.compile(regex.toString()).matcher(this);
-        Range<Integer> range = Range.of();
+        IntRange range = IntRange.empty();
         while(matcher.find()) {
             if (range.isEmpty() || matcher.start() > range.from()){
                 range.from(matcher.start());

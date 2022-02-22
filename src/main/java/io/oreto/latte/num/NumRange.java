@@ -1,15 +1,24 @@
 package io.oreto.latte.num;
 
 import io.oreto.latte.Range;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
+/**
+ * Represents a Number range
+ * @param <T> The number type of the range
+ */
 abstract public class NumRange<T extends Number> extends Range<T> {
 
+    /**
+     * Determine if the number is in the bounds from and to
+     * @param element The element to test
+     * @param from the lower bound
+     * @param to the upper bound
+     * @param inclusive if true the upper bound is included (<=) in the bounds
+     *                  , otherwise the test is strictly less than upper bound
+     * @return True if the element is in the bounds from and to, false otherwise
+     */
     public static boolean numberIn(Number element, Number from, Number to, boolean inclusive) {
         boolean in;
         if (element instanceof Integer) {
@@ -35,19 +44,23 @@ abstract public class NumRange<T extends Number> extends Range<T> {
     }
 
     protected T step;
+
+    /**
+     * Set the incremental step used to iterate through this range
+     * @param step The number size of each step
+     * @return This number range
+     */
     public NumRange<T> by(T step) { this.step = step; return this; }
+
+    /**
+     * Get the current step number value
+     * @return The size of the step
+     */
     public T by() { return step == null ? (step = defaultStep()) : step; }
+
+    /**
+     * The default size of the step
+     * @return The size of the step
+     */
     abstract protected T defaultStep();
-
-    abstract public <R> List<R> map(Function<T, R> mapper);
-    abstract public void each(Consumer<T> consumer);
-
-    @SuppressWarnings("unchecked")
-    public <R> R[] toArray() {
-        return (R[]) map(it->it).toArray();
-    }
-
-    public List<T> toList() {
-        return map(it->it);
-    }
 }

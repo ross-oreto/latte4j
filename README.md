@@ -6,4 +6,4 @@ Why?
   
 ### Requirements
  - jdk 8+
- - maven 3.3.1+
+ - maven 3+

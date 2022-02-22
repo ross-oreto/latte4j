@@ -4,7 +4,6 @@ import java.util.Objects;
 
 /**
  * A value combined with an index, indicating its position in an ordered sequence.
- *
  * @param <T> The type of the indexed value.
  */
 public class Indexed<T> {

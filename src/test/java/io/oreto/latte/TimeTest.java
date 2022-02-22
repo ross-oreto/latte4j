@@ -1,6 +1,6 @@
 package io.oreto.latte;
 
-import io.oreto.latte.time.DateRange;
+import io.oreto.latte.time.LocalDateTimeRange;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -22,7 +22,7 @@ public class TimeTest {
                         , d.plusSeconds(3).getSecond()
                         , d.plusSeconds(4).getSecond()
                 }
-                , DateRange.From(d).until(Duration.ofSeconds(5))
+                , LocalDateTimeRange.From(d).until(Duration.ofSeconds(5))
                         .by(Duration.ofSeconds(1))
                         .map(LocalDateTime::getSecond).toArray()
         );
@@ -38,12 +38,12 @@ public class TimeTest {
                         , d.plusDays(6).getDayOfWeek().name()
                         , d.plusDays(7).getDayOfWeek().name()
                 }
-                , DateRange.From(d).to(Duration.ofDays(7))
+                , LocalDateTimeRange.From(d).to(Duration.ofDays(7))
                         .by(Duration.ofDays(1))
                         .map(it -> it.getDayOfWeek().name()).toArray()
         );
 
         //assertFalse(DateRange.To(Duration.ofSeconds(10)).in(d));
-        assertTrue(DateRange.To(Duration.ofSeconds(10)).in(LocalDateTime.now()));
+        assertTrue(LocalDateTimeRange.To(Duration.ofSeconds(10)).in(LocalDateTime.now()));
     }
 }

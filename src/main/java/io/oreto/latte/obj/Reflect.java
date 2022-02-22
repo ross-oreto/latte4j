@@ -367,7 +367,7 @@ public class Reflect {
 
     public static void copy(Object o1, Object o2, Iterable<String> names, CopyOptions copyOptions)
             throws ReflectiveOperationException {
-        copy(o1, o2, names, copyOptions, new HashMap<>());
+        copy(o1, o2, names, copyOptions, new WeakHashMap<>());
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -382,6 +382,8 @@ public class Reflect {
         else
             visited.put(o2, o2);
 
+        // convert names into all possible path segments:
+        // [a.b.c, a.b.d] => [a, a.b, a.b.c, a.b.d]
         Set<String> nameSet = names == null
                 ? new HashSet<>()
                 : StreamSupport.stream(names.spliterator(), false)
