@@ -1,7 +1,8 @@
 package io.oreto.latte.map;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * MultiMap with lists of type Double
@@ -13,8 +14,15 @@ public class MultiDouble<K> extends MultiMap<K, Double> {
      * @return Map with summed values of each mapped list
      */
     public Map<K, Double> sum() {
-        return asMap().keySet().stream()
-                .collect(Collectors.toMap(it -> it, it -> get(it).stream()
-                        .mapToDouble(Double::doubleValue).sum()));
+        Map<K, List<Double>> map = asMap();
+        Map<K,Double> sums = new LinkedHashMap<>();
+        for (K k : map.keySet()) {
+            double total = 0;
+            for (double n : map.get(k)) {
+                total += n;
+            }
+            sums.put(k, total);
+        }
+        return sums;
     }
 }

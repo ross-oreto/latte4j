@@ -1,7 +1,6 @@
 package io.oreto.latte.map;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * A multimap implementation.
@@ -149,10 +148,12 @@ public class MultiMap<K, V> {
      * @return A collection of entries with a list value that contains v
      */
     public Collection<Map.Entry<K, List<V>>> entriesWith(V v) {
-        return map.keySet().stream()
-                .filter(k -> get(k).contains(v))
-                .map(it -> (Map.Entry<K, List<V>>) new AbstractMap.SimpleEntry<>(it, get(it)))
-                .collect(Collectors.toList());
+        Collection<Map.Entry<K, List<V>>> entries = new ArrayList<>();
+        for (K k : map.keySet()) {
+            if (get(k).contains(v))
+                entries.add(new AbstractMap.SimpleEntry<>(k, get(k)));
+        }
+        return entries;
     }
 
     /**
@@ -183,7 +184,11 @@ public class MultiMap<K, V> {
      * @return <tt>true</tt> if any list contains the specified value
      */
     public final boolean containsValue(V v) {
-        return map.keySet().stream().anyMatch(k -> get(k).contains(v));
+        for (K k : map.keySet()) {
+            if (get(k).contains(v))
+                return true;
+        }
+        return false;
     }
 
     /**

@@ -237,7 +237,11 @@ public class Reflect {
      * @return Optional field if the field exists, Optional.empty otherwise
      */
     public static Optional<Field> getField(Class<?> aClass, String field) {
-        return getAllFields(aClass).stream().filter(it -> it.getName().equals(field)).findFirst();
+        for (Field f : getAllFields(aClass)) {
+            if (f.getName().equals(field))
+                return Optional.of(f);
+        }
+        return Optional.empty();
     }
 
     /**

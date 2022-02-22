@@ -1,7 +1,8 @@
 package io.oreto.latte.map;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * MultiMap with lists of type String
@@ -15,8 +16,12 @@ public class MultiString<K> extends MultiMap<K, String> {
      * @return Map with joined string values of each mapped list
      */
     public Map<K, String> join(CharSequence s) {
-        return keySet().stream()
-                .collect(Collectors.toMap(it -> it, it -> String.join(s, get(it))));
+        Map<K, List<String>> map = asMap();
+        Map<K, String> joins = new LinkedHashMap<>();
+        for (K k : map.keySet()) {
+            joins.put(k, String.join(s, map.get(k)));
+        }
+        return joins;
     }
 
     /**
