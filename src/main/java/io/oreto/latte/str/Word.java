@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
  * Utility class to name things and represent things as words.
  */
 public class Word {
+    /**
+     * Enum to represent numbers zero through nine
+     */
     public enum ZeroTo9 {
         zero(0)
         , one(1)
@@ -48,6 +51,9 @@ public class Word {
         @Override public String toString() { return numberString; }
     }
 
+    /**
+     * Enum to represent numbers ten through nine-teen
+     */
     public enum TenTo19 {
         ten(10)
         , eleven(11)
@@ -86,6 +92,9 @@ public class Word {
         @Override public String toString() { return numberString; }
     }
 
+    /**
+     * Enum to represent numbers twenty through ninety
+     */
     public enum TwentyTo90 {
         twenty(20)
         , thirty(30)
@@ -121,6 +130,9 @@ public class Word {
         @Override public String toString() { return numberString; }
     }
 
+    /**
+     * Words that are Java reserved words
+     */
     public static String[] reservedWords = {
             "abstract",	"assert", "boolean", "break", "byte", "case", "catch"
             , "char", "class", "const", "continue", "default"
@@ -133,6 +145,9 @@ public class Word {
             ,"true", "try", "void", "volatile",	"while", "_"
     };
 
+    /**
+     * Enum to represent numbers zero through ninety-nine
+     */
     public static final Map<Integer, String> zeroTo99 = new HashMap<Integer, String>() {{
         put(ZeroTo9.zero.num, ZeroTo9.zero.name());
         put(ZeroTo9.one.num, ZeroTo9.one.name());
@@ -172,6 +187,13 @@ public class Word {
             , E.of(4, "trillion")
     );
 
+    /**
+     * Convert the number enum group to a word representation of the number
+     * @param h hundreds place
+     * @param t tenths place
+     * @param o ones place
+     * @return word representation of the number group
+     */
     public static String groupToWord(ZeroTo9 h, ZeroTo9 t, ZeroTo9 o) {
         if ( (h == null || h.num == 0) && (t == null || t.num == 0) && (o == null || o.num == 0) )
             return zeroTo99.get(0);
@@ -193,6 +215,11 @@ public class Word {
         return str.trim().toString();
     }
 
+    /**
+     * Convert number string to word representation
+     * @param s Number string
+     * @return An optional word if s is a valid number, Optional.empty otherwise
+     */
     public static Optional<String> fromNumber(CharSequence s) {
         if (s.length() == 0) return Optional.empty();
 
@@ -239,6 +266,9 @@ public class Word {
         );
     }
 
+    /**
+     * English prepositions
+     */
     public static final Set<String> prepositions = Lists.set(
            "about", "beside", "near", "to", "above", "between", "of", "towards", "across", "beyond",
            "off", "under", "after", "by", "on", "underneath", "against", "despite", "onto", "unlike", "along",
@@ -248,6 +278,9 @@ public class Word {
            "beneath", "like", "through"
     );
 
+    /**
+     * English definite articles
+     */
     public static final Set<String> definiteArticles = Lists.set(
             "a", "the", "an"
     );

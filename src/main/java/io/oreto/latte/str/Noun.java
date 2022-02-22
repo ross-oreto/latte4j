@@ -8,7 +8,13 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Utility methods for Nouns
+ */
 public class Noun {
+    /**
+     * Things that are not countable
+     */
     private static final Set<String> uncountable = Lists.set(
             "equipment", "information", "rice", "money", "monies", "species", "series", "fish"
             , "sheep", "deer", "next", "full", "moose", "bison", "everything"
@@ -99,11 +105,9 @@ public class Noun {
     static void addPlural(String rule, String replacement){
         plurals.add(0, new String[]{rule, replacement});
     }
-
     static void addSingular(String rule, String replacement){
         singulars.add(0, new String[]{rule, replacement});
     }
-
     static void addIrregular(String rule, String replacement){
         irregulars.add(new String[]{rule, replacement});
     }
@@ -121,10 +125,20 @@ public class Noun {
         return matcher.find() ? matcher.replaceFirst(replacement) : null;
     }
 
+    /**
+     * Determines if the noun is countable
+     * @param s The noun
+     * @return True if the noun is countable, false otherwise
+     */
     public static boolean isCountable(String s) {
         return !uncountable.contains(s);
     }
 
+    /**
+     * Make a word plural
+     * @param word The word to pluralize
+     * @return The plural form of the word
+     */
     public static String plural(String word) {
         if(uncountable.contains(word.toLowerCase())) return word;
 
@@ -133,16 +147,19 @@ public class Noun {
                 return irregular[1];
             }
         }
-
         for (String[] pair: plurals) {
             String plural = applyRule(word, pair[0], pair[1]);
             if (plural != null)
                 return plural;
         }
-
         return word;
     }
 
+    /**
+     * Make a word singular
+     * @param word The word
+     * @return The singular form of the word
+     */
     public static String singular(String word) {
         if(uncountable.contains(word.toLowerCase())) return word;
 
@@ -151,21 +168,29 @@ public class Noun {
                 return irregular[0];
             }
         }
-
         for (String[] pair: singulars) {
             String singular = applyRule(word, pair[0], pair[1]);
             if (singular != null)
                 return singular;
         }
-
         return word;
     }
 
+    /**
+     * Determine if the word is plural
+     * @param word The word to test
+     * @return True if the word is plural, false otherwise
+     */
     public static boolean isPlural(String word) {
         String w = word.toLowerCase();
         return uncountable.contains(w) || plural(w).equals(w);
     }
 
+    /**
+     * Determine if the word is singular
+     * @param word The word to test
+     * @return True if the word is singular, false otherwise
+     */
     public static boolean isSingular(String word) {
         String w = word.toLowerCase();
         return uncountable.contains(w) || !isPlural(w);
