@@ -207,6 +207,7 @@ public class Lists {
      * Any remaining elements in the array after the subdivision will be dropped if <code>keep</code> is false.
      * @param array An array
      * @param size The length of each sub-list in the returned list
+     * @param keep If true, any remaining elements are returned as sub-lists. Otherwise, they are discarded
      * @param <T> The type of the collection
      * @return A List containing the data collated into sub-lists
      */
@@ -226,7 +227,7 @@ public class Lists {
 
     /**
      * Convert list into all possible sequentially ordered sub-lists
-     * ["a", "b", "c", "d"] => [ [a], [a, b], [a, b, c], [a, b, c, d] ]
+     * {@code ["a", "b", "c", "d"] => [ [a], [a, b], [a, b, c], [a, b, c, d] ] }
      * @param list The full list
      * @param <T> Type of the list items
      * @return A list of lists with type T that represent all the possible sub-lists in order.

@@ -16,7 +16,7 @@ public abstract class Range<T> implements Comparable<T> {
      * @param element The element to test
      * @param from the lower bound
      * @param to the upper bound
-     * @param inclusive if true the upper bound is included (<=) in the bounds
+     * @param inclusive if true the upper bound is included {@code (<=)} in the bounds
      *                  , otherwise the test is strictly less than upper bound
      * @param <T> The type of the Range
      * @return True if the element is in the bounds from and to, false otherwise
@@ -47,7 +47,7 @@ public abstract class Range<T> implements Comparable<T> {
      * @param from the lower bound
      * @param to the upper bound
      * @param comp The Comparator used to test the bounds with
-     * @param inclusive if true the upper bound is included (<=) in the bounds
+     * @param inclusive if true the upper bound is included {@code (<=)} in the bounds
      *                  , otherwise the test is strictly less than upper bound
      * @param <T> The type of the Range
      * @return True if the element is in the bounds from and to, false otherwise

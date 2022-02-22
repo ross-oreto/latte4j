@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A multimap implementation. Meaning <code><Map<K, List<V>></code>
+ * A multimap implementation.
  * @param <K> The type of the map keys
  * @param <V> The type of the map values
  */

@@ -387,7 +387,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
     /**
      * Convert string to a list of characters
      * @param s The string to convert
-     * @return A list of characters <tt>List<Character></tt>
+     * @return A list of characters
      */
     public static List<Character> toList(CharSequence s) {
         int len = s.length();
@@ -968,7 +968,6 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      *          if {@code start} or {@code end} are negative,
      *          if {@code end} is greater than {@code length()},
      *          or if {@code start} is greater than {@code end}
-     * @spec JSR-51
      */
     @Override
     public CharSequence subSequence(int start, int end) {
@@ -986,6 +985,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
     /**
      * Returns a formatted string using the specified format string and
      * arguments.
+     * @param args Arguments to use with the formatted string
      * @return A new String representing this Str object substituting any format parameters with the supplied arguments
      */
     public String fmt(Object...args) {
@@ -1046,7 +1046,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * specified substring, starting at the specified index
      * @param s The string to search for
      * @param from the index from which to start the search.
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index ge 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> indexOf(CharSequence s, int from) {
         int i = sb.indexOf(s.toString(), from);
@@ -1057,7 +1057,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * Returns the index within this string of the first occurrence of the
      * specified substring, starting at the specified index
      * @param s The string to search for
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> indexOf(CharSequence s) {
         return indexOf(s, 0);
@@ -1068,7 +1068,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * specified substring, starting at the specified index
      * @param c The character to search for
      * @param from the index from which to start the search.
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> indexOf(char c, int from) {
         return indexOf(String.valueOf(c), from);
@@ -1078,7 +1078,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * Returns the index within this string of the first occurrence of the
      * specified substring, starting at the specified index
      * @param c The character to search for
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> indexOf(char c) {
         return indexOf(String.valueOf(c), 0);
@@ -1089,7 +1089,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * specified substring
      * @param s The string to search for
      * @param from the index from which to start the search.
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> lastIndexOf(CharSequence s, int from) {
         int i = sb.lastIndexOf(s.toString(), from);
@@ -1100,7 +1100,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * Returns the index within this string of the last occurrence of the
      * specified substring
      * @param s The string to search for
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> lastIndexOf(CharSequence s) {
         return lastIndexOf(s, 0);
@@ -1111,7 +1111,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * specified substring
      * @param c The character to search for
      * @param from the index from which to start the search.
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> lastIndexOf(char c, int from) {
         return lastIndexOf(String.valueOf(c), from);
@@ -1121,7 +1121,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * Returns the index within this string of the last occurrence of the
      * specified substring
      * @param c The character to search for
-     * @return An Optional index >= 0 if the string is found, Optional.empty otherwise
+     * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> lastIndexOf(char c) {
         return lastIndexOf(String.valueOf(c), 0);
@@ -1520,6 +1520,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
 
     /**
      * Delete all characters from the Str object then add the specified string to this Str object
+     * @param s The string to set this Str object to
      * @return This Str object
      */
     public Str setTo(CharSequence s) {
@@ -2111,6 +2112,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
 
     /**
      * Trim characters from the beginning and end of a string
+     * @param c The character to trim
      * @return The Str object
      */
     public Str trim(char c) {
@@ -2481,7 +2483,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
 
     /**
      * Convert string to a list of characters
-     * @return A list of characters <tt>List<Character></tt>
+     * @return A list of characters
      */
     public List<Character> toList() {
         return toList(this);
