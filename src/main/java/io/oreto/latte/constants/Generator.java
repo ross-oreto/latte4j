@@ -11,6 +11,9 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Generates static constants java files from text files
+ */
 public class Generator {
     public static final String STRING = "String";
     static final String defaultFileName = "c.txt";
@@ -20,6 +23,9 @@ public class Generator {
     static final String scream = "scream";
     static final String kebab = "kebab";
 
+    /**
+     * Represents the data type of the constant
+     */
     enum ConstantType {
         Int, Double, Long, String, comment;
 
@@ -28,14 +34,31 @@ public class Generator {
         }
     }
 
+    /**
+     * Options for constant generation
+     */
     static class Options {
+        // if true will put the constant name in all caps
         boolean capitalize = true;
+
+        // if true will put the constant value in all caps
         boolean scream = true;
+
+        // if true will add a cardinality variable of plural and singular variable names
         boolean cardinality = true;
+
+        // if true will split variable names into separate words
         boolean words = true;
+
+        // if true will add a kebab cased constant
         boolean kebab = true;
+
+        // if true add number variable to represent the number word
         boolean numbers = true;
+
+        // if true overwrite the output file if it already exists without prompting
         boolean overwrite = false;
+
         String inputFile = defaultFileName;
         String packageName = defaultPackage;
         String className = defaultClassName;
@@ -53,8 +76,11 @@ public class Generator {
                 .sep().add(className, ".java").toString();
     }
 
+    /**
+     * Runs the generator
+     * @param args Arguments from which to build constant options
+     */
     public static void main(String[] args) {
-
         Options cOptions = commandOptions(args);
 
         Str str = Str.of("package").space().add(cOptions.packageName, ";").br(2)
@@ -97,6 +123,11 @@ public class Generator {
         }
     }
 
+    /**
+     * Build the Options for constant generation from the main program arguments
+     * @param args Arguments of the main class
+     * @return The generation Options object
+     */
     static Options commandOptions(String[] args) {
         Options cOptions = new Options();
         if (args.length > 0) {
@@ -218,7 +249,7 @@ public class Generator {
                                 , Str.of(cardinality).toKebab().toString(), ConstantType.String, constants, values);
                     }
                 }
-                // try to split up the the variable into strings if specified. i.e. camelCase => camel Case
+                // try to split up the variable into strings if specified. i.e. camelCase => camel Case
                 if (cOptions.words) {
                     String words = Str.toWords(value);
                     if (!value.contains(Str.SPACE) && words.contains(Str.SPACE))

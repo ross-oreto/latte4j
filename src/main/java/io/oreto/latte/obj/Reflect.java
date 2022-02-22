@@ -189,7 +189,7 @@ public class Reflect {
     }
 
     private static List<Field> getAllFields(Class<?> aClass, List<Field> fields) {
-        return getAllFields(aClass, fields, Allow.none());
+        return getAllFields(aClass, fields, Allow.none().allowStatic());
     }
 
     /**
@@ -897,7 +897,7 @@ public class Reflect {
         private Allow allow;
 
         protected CopyOptions(){
-            allow = Allow.none();
+            allow = Allow.none().allowStatic();
         }
 
         /**

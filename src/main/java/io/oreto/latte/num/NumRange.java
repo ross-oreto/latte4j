@@ -1,6 +1,7 @@
 package io.oreto.latte.num;
 
 import io.oreto.latte.Range;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -9,7 +10,6 @@ import java.math.BigInteger;
  * @param <T> The number type of the range
  */
 abstract public class NumRange<T extends Number> extends Range<T> {
-
     /**
      * Determine if the number is in the bounds from and to
      * @param element The element to test
