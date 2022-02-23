@@ -180,11 +180,9 @@ public class Reflect {
                         .filter(it -> allow.underscore || !it.getName().startsWith("_"))
                         .collect(Collectors.toList())
         );
-
         if (aClass.getSuperclass() != null) {
             getAllFields(aClass.getSuperclass(), fields, allow);
         }
-
         return fields;
     }
 
