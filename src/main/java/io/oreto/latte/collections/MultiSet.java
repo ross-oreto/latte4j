@@ -9,6 +9,14 @@ public class MultiSet<T extends Comparable<T>> implements Iterable<T> {
         if (key.value == null) return 1;
         return value.compareTo(key.value);
     }
+
+    protected final Iterator<T> emptyIterator = new Iterator<T>() {
+        @Override
+        public boolean hasNext() { return false; }
+        @Override
+        public T next() { throw new NoSuchElementException(); }
+    };
+
     protected static class Key<T extends Comparable<T>> implements Comparable<Key<T>> {
         private int i;
         private final T value;
@@ -131,7 +139,6 @@ public class MultiSet<T extends Comparable<T>> implements Iterable<T> {
     @Override
     public Iterator<T> iterator() {
         Iterator<Key<T>> iterator = tSet.iterator();
-
         if (iterator.hasNext()) {
             return new Iterator<T>() {
                 Key<T> key = iterator.next();
@@ -151,17 +158,7 @@ public class MultiSet<T extends Comparable<T>> implements Iterable<T> {
                     return key.value;
                 }
             };
-        } else {
-            return new Iterator<T>() {
-                @Override
-                public boolean hasNext() {
-                    return false;
-                }
-                @Override
-                public T next() {
-                    return iterator.next().value;
-                }
-            };
-        }
+        } else
+            return emptyIterator;
     }
 }
