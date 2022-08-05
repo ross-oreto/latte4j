@@ -262,6 +262,14 @@ public class MultiSet<T extends Comparable<T>> implements Iterable<T> {
     }
 
     /**
+     * Return a unique set
+     * @return A set with all duplicates removed
+     */
+    public Set<T> unique() {
+        return tMap.keySet();
+    }
+
+    /**
      * Returns an iterator over the elements in this set in order
      * @return an iterator over the elements in this set in order
      */
