@@ -6,6 +6,7 @@ import io.oreto.latte.map.MultiString;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,5 +52,11 @@ public class MultiMapTest {
         assertArrayEquals(new Integer[] { null, null, null, 1, 1, 5, 10 }, set.toArray(new Integer[0]));
         assertArrayEquals(new Integer[] { null, 1, 5, 10 }, set.removeAll(null, null, 1).toArray(new Integer[0]));
         assertEquals(4, set.size());
+
+        set = new MultiSet<Integer>(Comparator.reverseOrder()).addAll(5, 1, 10, -1, -1);
+        assertArrayEquals(new Integer[] { 10, 5, 1, -1, -1 }, set.toArray(new Integer[0]));
+
+        set = new MultiSet<Integer>(Comparator.nullsLast(Comparator.naturalOrder())).addAll(null, 1, 1, 10, null, 5, null);
+        assertArrayEquals(new Integer[] { 1, 1, 5, 10, null, null, null }, set.toArray(new Integer[0]));
     }
 }
