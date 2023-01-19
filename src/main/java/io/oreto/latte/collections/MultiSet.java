@@ -223,7 +223,7 @@ public class MultiSet<T extends Comparable<T>> implements Iterable<T> {
     }
 
     /**
-     * Returns an array containing all of the elements in this list in
+     * Returns an array containing all the elements in this list in
      * proper sequence (from first to last element); the runtime type of
      * the returned array is that of the specified array.  If the list fits
      * in the specified array, it is returned therein.  Otherwise, a new
@@ -252,7 +252,7 @@ public class MultiSet<T extends Comparable<T>> implements Iterable<T> {
     }
 
     /**
-     * Removes all of the elements from this set.
+     * Removes all the elements from this set.
      * The set will be empty after this call returns.
      */
     public MultiSet<T> clear() {

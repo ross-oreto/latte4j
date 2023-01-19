@@ -1,6 +1,5 @@
 package io.oreto.latte.str;
 
-import io.oreto.latte.num.IntRange;
 import io.oreto.latte.num.Num;
 
 import javax.crypto.SecretKeyFactory;
@@ -62,7 +61,6 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * no such index <i>k</i>, the shorter sequence is considered lexicographically
      * less than the other. If the sequences have the same length, the sequences are
      * considered lexicographically equal.
-     *
      *
      * @param cs1 the first {@code CharSequence}
      * @param cs2 the second {@code CharSequence}
@@ -851,9 +849,10 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * Hash the given password with the specified salt string
      * @param password The password to hash
      * @param salt The salt to use in the hashing algorithm
+     * @param algorithm – the standard name of the requested secret-key algorithm. See the SecretKeyFactory
      * @return New Optional hash string if the hashing is successful, Optional.empty otherwise
      */
-    public static Optional<String> hash(String password, String salt) {
+    public static Optional<String> hash(String password, String salt, String algorithm) {
         char[] chars = password.toCharArray();
         byte[] bytes = salt.getBytes();
 
@@ -861,7 +860,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
         Arrays.fill(chars, Character.MIN_VALUE);
 
         try {
-            SecretKeyFactory fac = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            SecretKeyFactory fac = SecretKeyFactory.getInstance(algorithm);
             byte[] securePassword = fac.generateSecret(spec).getEncoded();
             return Optional.of(Base64.getEncoder().encodeToString(securePassword));
 
@@ -870,6 +869,16 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
         }
         spec.clearPassword();
         return Optional.empty();
+    }
+
+    /**
+     * Hash the given password with the specified salt string
+     * @param password The password to hash
+     * @param salt The salt to use in the hashing algorithm
+     * @return New Optional hash string if the hashing is successful, Optional.empty otherwise
+     */
+    public static Optional<String> hash(String password, String salt) {
+        return hash(password, salt, "PBKDF2WithHmacSHA512");
     }
 
     /**
@@ -1103,7 +1112,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> lastIndexOf(CharSequence s) {
-        return lastIndexOf(s, 0);
+        return lastIndexOf(s, length() - 1);
     }
 
     /**
@@ -1124,7 +1133,7 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      * @return An Optional index gte 0 if the string is found, Optional.empty otherwise
      */
     public Optional<Integer> lastIndexOf(char c) {
-        return lastIndexOf(String.valueOf(c), 0);
+        return lastIndexOf(String.valueOf(c), length() - 1);
     }
 
     /**
@@ -1415,15 +1424,15 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
      */
     public Str replaceLast(CharSequence regex, CharSequence replacement) {
         Matcher matcher = Pattern.compile(regex.toString()).matcher(this);
-        IntRange range = IntRange.empty();
+        int from = -1, to = -1;
         while(matcher.find()) {
-            if (range.isEmpty() || matcher.start() > range.from()){
-                range.from(matcher.start());
-                range.to(matcher.end());
+            if (from == -1 || matcher.start() > from) {
+                from = matcher.start();
+                to = matcher.end();
             }
         }
-        if (range.isPresent()) {
-            sb.replace(range.from(), range.to(), replacement.toString());
+        if (from > -1 && to > -1) {
+            sb.replace(from, to, replacement.toString());
         }
         return this;
     }
@@ -1843,8 +1852,9 @@ public class Str implements CharSequence, java.io.Serializable, Comparable<CharS
                 break;
         }
         if (failOnOutOfBounds) {
-            if (!IntRange.From(0).to(len).allIn(from, to))
+            if ((from < 0 || from > len) || (to < 0 || to > len )) {
                 throw new StringIndexOutOfBoundsException(String.format("begin %s, end %s, length %s", from, to, len));
+            }
         }
         if (from > to || to <= 0 || from >= len) {
             return delete();

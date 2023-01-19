@@ -1,8 +1,6 @@
 package io.oreto.latte.str;
 
 import io.oreto.latte.collections.Lists;
-import io.oreto.latte.map.E;
-import io.oreto.latte.map.Maps;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -179,13 +177,14 @@ public class Word {
         put(TwentyTo90.ninety.num, TwentyTo90.ninety.name());
     }};
 
-    static private final Map<Integer, String> magnitudeToWord = Maps.linked(
-            E.of(0, "hundred")
-            , E.of(1, "thousand")
-            , E.of(2, "million")
-            , E.of(3, "billion")
-            , E.of(4, "trillion")
-    );
+    static private final Map<Integer, String> magnitudeToWord = new LinkedHashMap<Integer, String>() {{
+        put(0, "hundred");
+        put(1, "thousand");
+        put(2, "million");
+        put(3, "billion");
+        put(4, "trillion");
+    }};
+
 
     /**
      * Convert the number enum group to a word representation of the number
